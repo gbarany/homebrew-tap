@@ -33,9 +33,9 @@ cask "tea-dash" do
 
   binary "tea-dash"
 
-  postflight do
-    if OS.mac?
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/tea-dash"]
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "tea-dash"], chdir: "."
     end
   end
 
